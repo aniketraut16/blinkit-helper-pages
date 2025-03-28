@@ -1,12 +1,15 @@
 
-import type { Config } from "tailwindcss"
-import { fontFamily } from "tailwindcss/defaultTheme"
-import animatePlugin from "tailwindcss-animate"
+import { type Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
-const config = {
+export default {
   darkMode: ["class"],
-  content: ["./index.html", "./src/**/*.{ts,tsx}"],
-  prefix: "",
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+	],
   theme: {
     container: {
       center: true,
@@ -50,7 +53,19 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Add Blinkit-specific colors
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: {
+            DEFAULT: "hsl(var(--sidebar-primary))",
+            foreground: "hsl(var(--sidebar-primary-foreground))",
+          },
+          accent: {
+            DEFAULT: "hsl(var(--sidebar-accent))",
+            foreground: "hsl(var(--sidebar-accent-foreground))",
+          },
+          border: "hsl(var(--sidebar-border))",
+        },
         "blinkit-green": "#0C831F",
         "blinkit-yellow": "#F8CB46",
       },
@@ -78,7 +93,5 @@ const config = {
       },
     },
   },
-  plugins: [animatePlugin],
+  plugins: [],
 } satisfies Config
-
-export default config
