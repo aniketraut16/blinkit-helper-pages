@@ -1,94 +1,90 @@
 
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ShoppingCart, MapPin, Menu, X, Search, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Menu, X, Search, ShoppingCart, MapPin } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
+    <header className="bg-white shadow-sm sticky top-0 z-10">
+      <div className="container mx-auto max-w-7xl px-4">
+        <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <NavLink to="/" className="flex items-center gap-2">
-            <div className="text-blinkit-green font-bold text-3xl">
-              blink<span className="text-blinkit-yellow">it</span>
-            </div>
-          </NavLink>
+          <Link to="/" className="flex items-center">
+            <span className="text-2xl font-bold text-blinkit-green">blink<span className="text-blinkit-yellow">it</span></span>
+          </Link>
 
-          {/* Location selector - visible on md and above */}
-          <div className="hidden md:flex items-center gap-1 text-sm border-b border-gray-300 py-1 px-2">
-            <MapPin size={16} className="text-blinkit-green" />
-            <span className="font-medium">Delivery to:</span>
-            <span className="text-gray-600 truncate max-w-[200px]">New Delhi, India</span>
+          {/* Location Selector */}
+          <div className="hidden md:flex items-center gap-2 ml-8">
+            <MapPin size={18} className="text-blinkit-green" />
+            <span className="text-sm">Deliver to: <span className="font-semibold">Sector 62, Noida</span></span>
           </div>
 
-          {/* Search - visible on md and above */}
-          <div className="hidden md:flex flex-1 max-w-md mx-5">
+          {/* Search Bar */}
+          <div className="hidden md:flex flex-1 max-w-xl mx-6">
             <div className="relative w-full">
-              <Search size={18} className="absolute left-3 top-2.5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
               <Input 
                 type="text" 
-                placeholder="Search for products" 
-                className="pl-10 bg-gray-100 border-none focus-visible:ring-blinkit-green"
+                placeholder="Search for products..." 
+                className="pl-10 pr-4 py-2 w-full border border-gray-200 rounded-lg" 
               />
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-5">
-            <NavLink to="/login" className="text-sm flex items-center gap-1 hover:text-blinkit-green transition-colors">
-              <User size={18} />
-              <span>Login</span>
-            </NavLink>
-            <Button className="bg-blinkit-green hover:bg-blinkit-green/90 text-white flex items-center gap-2">
-              <ShoppingCart size={18} />
-              <span>My Cart</span>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button className="md:hidden p-2" onClick={toggleMenu}>
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t py-4 px-4 animate-slide-in">
-          <div className="flex items-center gap-1 text-sm border-b border-gray-300 py-2 mb-4">
-            <MapPin size={16} className="text-blinkit-green" />
-            <span className="font-medium">Delivery to:</span>
-            <span className="text-gray-600 truncate max-w-[200px]">New Delhi, India</span>
-          </div>
-
-          <div className="relative w-full mb-4">
-            <Search size={18} className="absolute left-3 top-2.5 text-gray-400" />
-            <Input 
-              type="text" 
-              placeholder="Search for products" 
-              className="pl-10 bg-gray-100 border-none focus-visible:ring-blinkit-green"
-            />
-          </div>
-
-          <nav className="flex flex-col gap-4">
-            <NavLink to="/" className="hover:text-blinkit-green py-2 transition-colors">Home</NavLink>
-            <NavLink to="/about" className="hover:text-blinkit-green py-2 transition-colors">About Us</NavLink>
-            <NavLink to="/contact" className="hover:text-blinkit-green py-2 transition-colors">Contact Us</NavLink>
-            <NavLink to="/login" className="hover:text-blinkit-green py-2 transition-colors">Login</NavLink>
-            <Button className="bg-blinkit-green hover:bg-blinkit-green/90 text-white flex items-center gap-2 w-full justify-center">
-              <ShoppingCart size={18} />
-              <span>My Cart</span>
+          {/* Navigation - Desktop */}
+          <nav className="hidden md:flex items-center gap-6">
+            <Link to="/" className="text-gray-700 hover:text-blinkit-green font-medium">Home</Link>
+            <Link to="/about" className="text-gray-700 hover:text-blinkit-green font-medium">About</Link>
+            <Link to="/contact" className="text-gray-700 hover:text-blinkit-green font-medium">Contact</Link>
+            <Button variant="outline" className="border-blinkit-green text-blinkit-green hover:bg-blinkit-green/10">
+              <ShoppingCart size={18} className="mr-2" />
+              Cart
             </Button>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2">
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-      )}
+
+        {/* Mobile Search */}
+        <div className="md:hidden pb-4">
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+            <Input 
+              type="text" 
+              placeholder="Search for products..." 
+              className="pl-10 pr-4 py-2 w-full border border-gray-200 rounded-lg" 
+            />
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white py-4 border-t">
+            <nav className="flex flex-col space-y-4">
+              <Link to="/" className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md">Home</Link>
+              <Link to="/about" className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md">About</Link>
+              <Link to="/contact" className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md">Contact</Link>
+              <div className="px-4 py-2 flex items-center gap-2">
+                <MapPin size={18} className="text-blinkit-green" />
+                <span className="text-sm">Sector 62, Noida</span>
+              </div>
+              <Button className="mx-4 bg-blinkit-green hover:bg-blinkit-green/90">
+                <ShoppingCart size={18} className="mr-2" />
+                View Cart
+              </Button>
+            </nav>
+          </div>
+        )}
+      </div>
     </header>
   );
 };
